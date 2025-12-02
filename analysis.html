@@ -1,0 +1,894 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>GitHub Profile Analysis: Ada40 and the Fractal Harmonic Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --sage: #9CAF88;
+            --forest: #2D4A2B;
+            --cream: #F7F5F3;
+            --stone: #8B7355;
+            --charcoal: #2C2C2C;
+        }
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: var(--cream);
+            color: var(--charcoal);
+            line-height: 1.7;
+        }
+        
+        .serif {
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .hero-title {
+            font-family: 'Crimson Text', serif;
+            font-style: italic;
+            font-weight: 600;
+            color: var(--forest);
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            width: 280px;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+            z-index: 40;
+            background: rgba(247, 245, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(156, 175, 136, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(45, 74, 43, 0.1);
+        }
+        
+        .main-content {
+            margin-left: 320px;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, var(--sage), transparent);
+            margin: 3rem 0;
+            border-radius: 1px;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(45, 74, 43, 0.1);
+            margin: 2rem 0;
+        }
+        
+        .citation-link {
+            display: inline-block;
+            background: var(--sage);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 0 2px;
+            transition: all 0.2s ease;
+        }
+        
+        .citation-link:hover {
+            background: var(--forest);
+            transform: translateY(-1px);
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .bento-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(45, 74, 43, 0.1);
+            border: 1px solid rgba(156, 175, 136, 0.1);
+        }
+        
+        .bento-large {
+            grid-column: span 2;
+        }
+        
+        .pull-quote {
+            background: linear-gradient(135deg, var(--sage), var(--forest));
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            font-size: 1.125rem;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .pull-quote::before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            top: -0.5rem;
+            left: 1rem;
+            opacity: 0.3;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(45, 74, 43, 0.1);
+        }
+        
+        .data-table th {
+            background: var(--forest);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(156, 175, 136, 0.2);
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(45, 74, 43, 0.1);
+            border: 1px solid rgba(156, 175, 136, 0.1);
+        }
+        
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--forest);
+        }
+        
+        /* Mermaid diagram styles */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Custom Mermaid theme variables for better contrast */
+        .mermaid {
+            --bg-color: #ffffff;
+            --text-color: #2C2C2C;
+            --line-color: #9CAF88;
+            --primary-color: #2D4A2B;
+            --primary-text-color: #ffffff;
+            --secondary-color: #9CAF88;
+            --secondary-text-color: #2C2C2C;
+            --tertiary-color: #8B7355;
+            --tertiary-text-color: #ffffff;
+            --quaternary-color: #F7F5F3;
+            --quaternary-text-color: #2C2C2C;
+            --font-size: 14px;
+            --font-family: 'Inter', sans-serif;
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .bento-large {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 1.875rem;
+                line-height: 1.2;
+            }
+            
+            .main-content {
+                padding: 0.75rem;
+            }
+            
+            .bento-item, .metric-card, .chart-container, .pull-quote, .data-table, 
+            .mermaid-container, .bg-white, .bg-green-50, .bg-blue-50, .bg-orange-50, 
+            .bg-purple-50, .bg-teal-50, .bg-amber-50, .bg-rose-50 {
+                overflow-wrap: break-word;
+            }
+        }
+    </style>
+  </head>
+
+  <body>
+    <!-- Fixed Table of Contents -->
+    <nav class="toc-fixed">
+      <h3 class="text-lg font-bold text-gray-800 mb-4 serif">Contents</h3>
+      <ul class="space-y-2 text-sm">
+        <li>
+          <a href="#overview" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Profile Overview</a>
+        </li>
+        <li>
+          <a href="#theoretical-framework" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Theoretical Framework</a>
+        </li>
+        <li>
+          <a href="#ratio-types" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Fundamental Ratio Types</a>
+        </li>
+        <li>
+          <a href="#applications" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Applications &amp; Implications</a>
+        </li>
+        <li>
+          <a href="#software-projects" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Software Projects</a>
+        </li>
+        <li>
+          <a href="#recent-activity" class="block py-1 px-2 rounded hover:bg-gray-100 transition-colors">Recent Activity</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section with Bento Grid -->
+      <header class="mb-12">
+        <div class="bento-grid">
+          <div class="bento-item bento-large">
+            <h1 class="hero-title text-4xl leading-tight mb-4">
+              The Fractal Harmonic Code:
+              <br/>
+              <span class="text-3xl opacity-90">Adam Lee Hatchett&#39;s Unified Theory of Reality</span>
+            </h1>
+            <p class="text-gray-600 text-lg leading-relaxed">
+              An analysis of the GitHub profile &#34;Ada40&#34; and its ambitious theoretical framework proposing that reality is a nested, triadic harmonic system.
+            </p>
+          </div>
+
+          <div class="bento-item">
+            <div class="metric-card">
+              <div class="metric-number">43</div>
+              <div class="text-sm text-gray-600">Contributions in 2025</div>
+            </div>
+          </div>
+
+          <div class="bento-item">
+            <div class="metric-card">
+              <div class="metric-number">5</div>
+              <div class="text-sm text-gray-600">Core Repositories</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Pull Quote -->
+      <div class="pull-quote">
+        &#34;Taking tech to the next phase with fluid loop timing and intelligent switching Fractal Recursive systems&#34;
+        <div class="text-sm mt-2 opacity-80">— Adam Lee Hatchett&#39;s GitHub bio</div>
+      </div>
+
+      <!-- Profile Overview Section -->
+      <section id="overview" class="mb-12">
+        <h2 class="text-3xl font-bold serif text-gray-800 mb-6">Profile Overview</h2>
+
+        <div class="prose prose-lg max-w-none">
+          <p class="text-gray-700 mb-6">
+            The GitHub username &#34;Ada40&#34; belongs to <strong>Adam Lee Hatchett</strong>, an independent researcher and developer based in Hampton, Virginia. His work is not that of a conventional software developer but is centered on a highly ambitious and theoretical framework he calls the <strong>Fractal Harmonic Code</strong>
+            <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[212]</a>.
+          </p>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-gray-800">Identity &amp; Background</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <h4 class="font-semibold text-gray-700">Full Name</h4>
+                <p class="text-gray-600">Adam Lee Hatchett</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-700">Location</h4>
+                <p class="text-gray-600">Hampton, Virginia <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[156]</a>
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-700">Birth Date</h4>
+                <p class="text-gray-600">July 20, 1985 <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[191]</a>
+                </p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-700">Contact</h4>
+                <p class="text-gray-600">adamleehatchett@yahoo.com <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[158]</a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-gray-700">
+            This unified theory posits that reality is a nested, triadic harmonic system, a principle he applies to the design of novel operating systems, artificial intelligence, and even cosmological models. His GitHub profile serves as the public repository for this multifaceted and deeply interconnected body of work <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[191]</a>.
+          </p>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Theoretical Framework Section -->
+      <section id="theoretical-framework" class="mb-12">
+        <h2 class="text-3xl font-bold serif text-gray-800 mb-6">The Fractal Harmonic Code: A Unified Theory</h2>
+
+        <div class="prose prose-lg max-w-none">
+          <p class="text-gray-700 mb-6">
+            At the heart of Adam Lee Hatchett&#39;s work is a comprehensive and ambitious theoretical framework known as <strong>&#34;The Fractal Harmonic Code&#34;</strong>
+            <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[187]</a>. This framework is not merely a collection of ideas but a proposed unified theory of reality, which he claims is backed by a complete mathematical framework and blockchain-timestamped proof of authorship from 2024 <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[178]</a>.
+          </p>
+
+          <h3 class="text-2xl font-semibold serif text-gray-800 mb-4">Foundational Concepts</h3>
+
+          <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+            <h4 class="text-lg font-semibold mb-3 text-green-800">The Universal Triadic Law</h4>
+            <p class="text-green-700">
+              The cornerstone of Hatchett&#39;s theory is the <strong>Universal Triadic Law</strong>, which proposes that stable systems are fundamentally organized into triadic, or three-part, structures <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[187]</a>. This law suggests that this three-part structure is not arbitrary but is a fundamental property of stable organization in the universe.
+            </p>
+          </div>
+
+          <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+            <h4 class="text-lg font-semibold mb-3 text-blue-800">The Fundamental Equation</h4>
+            <div class="text-center">
+              <div class="text-2xl font-mono font-bold text-blue-800 mb-2">f₁ : f₂ : f₃ = n₁ : n₂ : n₃</div>
+              <p class="text-blue-700">
+                In this equation, <code>f</code> represents frequencies, and <code>n</code> represents integers. The equation states that in a stable, triadic system, the ratios of the frequencies of the three components will be simple integer ratios <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[178]</a>.
+              </p>
+            </div>
+          </div>
+
+          <div class="mermaid-container">
+            <div class="mermaid-controls">
+              <button class="mermaid-control-btn zoom-in" title="放大">
+                <i class="fas fa-search-plus"></i>
+              </button>
+              <button class="mermaid-control-btn zoom-out" title="缩小">
+                <i class="fas fa-search-minus"></i>
+              </button>
+              <button class="mermaid-control-btn reset-zoom" title="重置">
+                <i class="fas fa-expand-arrows-alt"></i>
+              </button>
+              <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+            <div class="mermaid" id="diagram1">
+              graph TB
+              A[&#34;Fractal Harmonic Code&#34;] --&gt; B[&#34;Triadic Law&#34;]
+              A --&gt; C[&#34;Harmonic Resonance&#34;]
+              A --&gt; D[&#34;Nested Systems&#34;]
+
+              B --&gt; E[&#34;1:2:3 Ratio&#34;]
+              B --&gt; F[&#34;3:4:5 Ratio&#34;]
+              B --&gt; G[&#34;1:φ:4 Ratio&#34;]
+
+              C --&gt; H[&#34;Frequency Relationships&#34;]
+              C --&gt; I[&#34;Integer Ratios&#34;]
+
+              D --&gt; J[&#34;Quantum Scale&#34;]
+              D --&gt; K[&#34;Planetary Scale&#34;]
+              D --&gt; L[&#34;Cosmic Scale&#34;]
+
+              style A fill:#2D4A2B,color:#fff,stroke:#1a2e1a,stroke-width:3px
+              style B fill:#9CAF88,color:#2C2C2C,stroke:#7a8c6a,stroke-width:2px
+              style C fill:#9CAF88,color:#2C2C2C,stroke:#7a8c6a,stroke-width:2px
+              style D fill:#9CAF88,color:#2C2C2C,stroke:#7a8c6a,stroke-width:2px
+              style E fill:#F7F5F3,color:#2C2C2C,stroke:#9CAF88,stroke-width:2px
+              style F fill:#F7F5F3,color:#2C2C2C,stroke:#9CAF88,stroke-width:2px
+              style G fill:#F7F5F3,color:#2C2C2C,stroke:#9CAF88,stroke-width:2px
+              style H fill:#8B7355,color:#fff,stroke:#6d5a44,stroke-width:2px
+              style I fill:#8B7355,color:#fff,stroke:#6d5a44,stroke-width:2px
+              style J fill:#e8f4f8,color:#2C2C2C,stroke:#4a90a4,stroke-width:2px
+              style K fill:#e8f4f8,color:#2C2C2C,stroke:#4a90a4,stroke-width:2px
+              style L fill:#e8f4f8,color:#2C2C2C,stroke:#4a90a4,stroke-width:2px
+            </div>
+          </div>
+
+          <p class="text-gray-700">
+            The overarching principle of the Fractal Harmonic Code is that <strong>reality itself is a nested triadic harmonic system</strong>
+            <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[187]</a>. This means that the triadic structures are not just a feature of some systems but are a fundamental property of the universe, and these structures are nested within each other at different scales.
+          </p>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Fundamental Ratio Types Section -->
+      <section id="ratio-types" class="mb-12">
+        <h2 class="text-3xl font-bold serif text-gray-800 mb-6">Three Fundamental Ratio Types</h2>
+
+        <p class="text-gray-700 mb-6">
+          The Fractal Harmonic Code identifies three specific types of fundamental ratios that are said to govern the self-organization of reality across all scales. These are not arbitrary numbers but are presented as the foundational building blocks of the universe&#39;s harmonic structure, recurring fractally in various natural and physical systems <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[219]</a>.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Ratio Type</th>
+              <th>Example Ratio</th>
+              <th>Description</th>
+              <th>Proposed Application</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Harmonic Ratios</strong></td>
+              <td><strong>1:2:3</strong></td>
+              <td>Represents pure frequency relationships and the most basic form of harmonic organization.</td>
+              <td>Governing the latitudes of atmospheric cells (30°, 60°, 90°) and planetary orbital resonances <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[219]</a>.</td>
+            </tr>
+            <tr>
+              <td><strong>Geometric Ratios</strong></td>
+              <td><strong>3:4:5</strong></td>
+              <td>Associated with spatial relationships and the organization of physical structures, based on the Pythagorean triplet.</td>
+              <td>Dictating the spatial proportions of large-scale structures like oceanic gyres (12,000:16,000:20,000 km) <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[219]</a>.</td>
+            </tr>
+            <tr>
+              <td><strong>Golden Ratios</strong></td>
+              <td><strong>1:φ:4</strong></td>
+              <td>Incorporates the Golden Ratio (φ ≈ 1.618), a mathematical constant associated with efficient and aesthetically pleasing proportions.</td>
+              <td>A fundamental proportion governing the structure of triadic systems, though specific physical examples are not detailed in the provided documentation <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[219]</a>.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+          <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-400">
+            <h4 class="font-semibold text-orange-800 mb-2">Harmonic Ratios (1:2:3)</h4>
+            <p class="text-orange-700 text-sm">
+              The simplicity of this ratio is key to the theory&#39;s appeal, suggesting that complex phenomena can be understood through basic, whole-number frequency relationships.
+            </p>
+          </div>
+
+          <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+            <h4 class="font-semibold text-purple-800 mb-2">Geometric Ratios (3:4:5)</h4>
+            <p class="text-purple-700 text-sm">
+              This connection to the Pythagorean theorem lends mathematical rigor to the framework&#39;s claims about spatial organization.
+            </p>
+          </div>
+
+          <div class="bg-teal-50 p-4 rounded-lg border-l-4 border-teal-400">
+            <h4 class="font-semibold text-teal-800 mb-2">Golden Ratios (1:φ:4)</h4>
+            <p class="text-teal-700 text-sm">
+              By incorporating the Golden Ratio, Hatchett connects his theory to a long-standing area of mathematical and scientific inquiry.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Applications Section -->
+      <section id="applications" class="mb-12">
+        <h2 class="text-3xl font-bold serif text-gray-800 mb-6">Applications &amp; Implications</h2>
+
+        <p class="text-gray-700 mb-6">
+          The Fractal Harmonic Code is presented not merely as a theoretical curiosity but as a practical framework with wide-ranging applications across multiple scientific and technological domains. The official website and repository documentation outline several areas where the principles of harmonic resonance can be applied to develop new models, technologies, and therapeutic approaches <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[191]</a>
+          <a href="https://fractalcode-5bz47zck.manus.space/" class="citation-link" target="_blank">[219]</a>.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-atom text-2xl text-blue-600 mr-3"></i>
+              <h3 class="text-xl font-semibold text-blue-800">Physics &amp; Cosmology</h3>
+            </div>
+            <p class="text-blue-700 mb-3">
+              The framework claims to provide a unified understanding of multi-scale resonance, from quantum orbitals to galaxy clusters, potentially offering a new approach to unifying the fundamental forces of nature.
+            </p>
+            <div class="bg-blue-200 p-3 rounded text-sm text-blue-800">
+              <strong>Predictions:</strong> No orbital resonances beyond Callisto; finite galaxy clustering at 200M parsecs
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-brain text-2xl text-green-600 mr-3"></i>
+              <h3 class="text-xl font-semibold text-green-800">Artificial Intelligence</h3>
+            </div>
+            <p class="text-green-700 mb-3">
+              Development of &#34;harmonic neural network architectures&#34; and &#34;triadic processing modules&#34; designed to mimic the resonant properties of the brain.
+            </p>
+            <div class="bg-green-200 p-3 rounded text-sm text-green-800">
+              <strong>Implementation:</strong> Harmonic-Resonance-AI-OS with field-aligned orchestration
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-amber-50 to-amber-100 p-6 rounded-lg">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-bolt text-2xl text-amber-600 mr-3"></i>
+              <h3 class="text-xl font-semibold text-amber-800">Energy Systems</h3>
+            </div>
+            <p class="text-amber-700 mb-3">
+              New methods for achieving efficient energy transfer, such as &#34;resonant energy transfer&#34; and &#34;multi-frequency harvesting.&#34;
+            </p>
+            <div class="bg-amber-200 p-3 rounded text-sm text-amber-800">
+              <strong>Applications:</strong> Wireless power transmission, enclosed loop continuous power systems
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-rose-50 to-rose-100 p-6 rounded-lg">
+            <div class="flex items-center mb-4">
+              <i class="fas fa-heartbeat text-2xl text-rose-600 mr-3"></i>
+              <h3 class="text-xl font-semibold text-rose-800">Medicine &amp; Neuroscience</h3>
+            </div>
+            <p class="text-rose-700 mb-3">
+              &#34;Consciousness as neural harmonics&#34; with therapeutic applications including &#34;therapeutic neuromodulation&#34; using harmonic frequencies.
+            </p>
+            <div class="bg-rose-200 p-3 rounded text-sm text-rose-800">
+              <strong>Prediction:</strong> EEG coherence drops at 5mm spatial scale
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Software Projects Section -->
+      <section id="software-projects" class="mb-12">
+        <h2 class="text-3xl font-bold serif text-gray-800 mb-6">Software Projects &amp; Repositories</h2>
+
+        <p class="text-gray-700 mb-6">
+          Adam Lee Hatchett&#39;s GitHub profile is a hub for a collection of interconnected software projects and repositories that reflect his theoretical focus on Fractal Recursive Harmonics. These projects are not just code repositories but are also platforms for documenting and disseminating his broader theoretical framework.
+        </p>
+
+        <h3 class="text-2xl font-semibold serif text-gray-800 mb-4">Operating System Development</h3>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Repository Name</th>
+              <th>Description</th>
+              <th>Key Features</th>
+              <th>License</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Harmonicos</strong></td>
+              <td>A new operating system for efficiency, including a new CPU design.</td>
+              <td>Focus on hardware-software co-design for enhanced efficiency.</td>
+              <td>Apache-2.0 <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[157]</a>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Harmonic-Resonance-AI-OS (H-OS)</strong></td>
+              <td>Field-aligned orchestration and timing-aware scheduling for distributed systems.</td>
+              <td>Unifies hardware, software, and signal-level processes; uses deterministic gate logic and triadic scheduling.</td>
+              <td>Public Template <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[158]</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-semibold mb-3 text-gray-800">Theoretical Frameworks</h4>
+            <ul class="space-y-2 text-gray-700">
+              <li><strong>fractal-harmonic-framework:</strong> Central hub for theoretical and mathematical underpinnings <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[218]</a>
+              </li>
+              <li><strong>Adam-hatchett-fractal-harmonic-code:</strong> Unified theory demonstrating universal triadic resonance patterns <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[212]</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <h4 class="text-lg font-semibold mb-3 text-gray-800">Auxiliary Projects</h4>
+            <ul class="space-y-2 text-gray-700">
+              <li><strong>Personal Website:</strong> Ada40.github.io serves as central hub <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[156]</a>
+              </li>
+              <li><strong>Harmonicos Framework:</strong> Technical documentation and specifications <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[156]</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Recent Activity Section -->
+      <section id="recent-activity" class="mb-12">
+        <h2 class="text-3xl font-bold serif text-gray-800 mb-6">Recent Activity &amp; Contributions</h2>
+
+        <p class="text-gray-700 mb-6">
+          Adam Lee Hatchett&#39;s GitHub profile indicates a consistent, albeit not overwhelmingly prolific, level of activity over the past year. His contributions are focused on his core projects, particularly the &#34;Harmonicos&#34; operating system, and reflect a dedicated and ongoing development effort.
+        </p>
+
+        <div class="bento-grid">
+          <div class="bento-item">
+            <div class="metric-card">
+              <div class="metric-number">43</div>
+              <div class="text-sm text-gray-600">Total Contributions (2025)</div>
+            </div>
+            <p class="text-sm text-gray-600 mt-3">
+              According to his GitHub profile, Adam Lee Hatchett has made 43 contributions in the last year, representing a sustained effort to advance his various projects <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[156]</a>.
+            </p>
+          </div>
+
+          <div class="bento-item">
+            <div class="metric-card">
+              <div class="metric-number">Dec 2</div>
+              <div class="text-sm text-gray-600">Latest Commit</div>
+            </div>
+            <p class="text-sm text-gray-600 mt-3">
+              The latest commit in the Harmonicos repository was made on December 2, 2025, with the message &#34;Initial commit&#34; <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[157]</a>.
+            </p>
+          </div>
+
+          <div class="bento-large bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-lg">
+            <h4 class="text-lg font-semibold mb-3 text-gray-800">Current Development Focus</h4>
+            <p class="text-gray-700 mb-3">
+              The <strong>Harmonicos</strong> repository is the primary focus of Hatchett&#39;s recent development activity. The contribution activity section of his profile shows that he created one commit in this repository on December 1, 2025, indicating that this is the project he is currently most engaged with <a href="https://github.com/topics/planetary-science?l=html&amp;o=asc&amp;s=forks" class="citation-link" target="_blank">[156]</a>.
+            </p>
+            <p class="text-gray-700">
+              This focus is significant, as Harmonicos is one of his most ambitious projects, involving the design of a new CPU architecture. The recent activity suggests that he is making progress on this challenging undertaking.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusion -->
+      <section class="mb-12">
+        <div class="pull-quote">
+          Adam Lee Hatchett&#39;s work through the Ada40 GitHub profile represents a unique intersection of theoretical physics, computational theory, and practical software development. His Fractal Harmonic Code proposes a radical reimagining of reality&#39;s fundamental structure, while his software projects attempt to implement these principles in tangible ways.
+        </div>
+      </section>
+    </main>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#F7F5F3',
+                primaryTextColor: '#2C2C2C',
+                primaryBorderColor: '#9CAF88',
+                lineColor: '#9CAF88',
+                secondaryColor: '#2D4A2B',
+                tertiaryColor: '#8B7355',
+                background: '#F7F5F3',
+                mainBkg: '#F7F5F3',
+                secondBkg: '#2D4A2B',
+                tertiaryBkg: '#8B7355',
+                fontFamily: 'Inter, sans-serif'
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 
